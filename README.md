@@ -10,8 +10,8 @@ cd basic-test
 docker-compose up -d --build
 ```
 
-- MySQL のデータディレクトリは `./docker/mysql/data` に保存されます。初回起動時は自動的にディレクトリが作成されます。
-- MySQL が起動しない場合は、docker-compose.yml の MySQL ボリュームパスを確認してください。
+- MySQL のデータディレクトリは `~/coachtech-basic-test-mysql-data` に保存されます。初回起動時は自動的にディレクトリが作成されます。
+- **重要**: Windows ファイルシステム（`/mnt/c/`）では権限の問題で MySQL が起動しない場合があります。その場合は、docker-compose.yml の MySQL ボリュームパスを `~/coachtech-basic-test-mysql-data` に設定してください（既に設定済み）。
 
 ### Laravel 環境構築
 
@@ -31,9 +31,10 @@ php artisan db:seed
 ```
 
 **注意事項:**
+
 - `composer install`は`/var/www`ディレクトリで実行してください
 - `.env`ファイルの作成と`php artisan`コマンドも`/var/www`ディレクトリで実行してください
-- MySQLのデータディレームは`./docker/mysql/data`に保存されます。初回起動時は自動的にディレクトリが作成されます
+- MySQL のデータディレクトリは`~/coachtech-basic-test-mysql-data`に保存されます。初回起動時は自動的にディレクトリが作成されます
 
 ## 使用技術(実行環境)
 
