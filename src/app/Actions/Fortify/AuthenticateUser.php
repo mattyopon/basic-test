@@ -36,7 +36,7 @@ class AuthenticateUser
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
-                'email' => ['メールアドレスまたはパスワードが正しくありません。'],
+                'email' => ['ログイン情報が登録されていません'],
             ]);
         }
 

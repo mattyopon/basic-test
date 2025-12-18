@@ -340,7 +340,7 @@
                                 class="form-input @error('phone1') is-invalid @enderror" 
                                 placeholder="080"
                                 value="{{ old('phone1') }}"
-                                maxlength="4"
+                                maxlength="5"
                             >
                             <span class="phone-separator">-</span>
                             <input 
@@ -349,7 +349,7 @@
                                 class="form-input @error('phone2') is-invalid @enderror" 
                                 placeholder="1234"
                                 value="{{ old('phone2') }}"
-                                maxlength="4"
+                                maxlength="5"
                             >
                             <span class="phone-separator">-</span>
                             <input 
@@ -358,7 +358,7 @@
                                 class="form-input @error('phone3') is-invalid @enderror" 
                                 placeholder="5678"
                                 value="{{ old('phone3') }}"
-                                maxlength="4"
+                                maxlength="5"
                             >
                         </div>
                         @error('phone1')
@@ -420,11 +420,9 @@
                             class="form-select @error('category') is-invalid @enderror"
                         >
                             <option value="">選択してください</option>
-                            <option value="商品のお届けについて" {{ old('category') == '商品のお届けについて' ? 'selected' : '' }}>商品のお届けについて</option>
-                            <option value="商品の交換について" {{ old('category') == '商品の交換について' ? 'selected' : '' }}>商品の交換について</option>
-                            <option value="商品トラブル" {{ old('category') == '商品トラブル' ? 'selected' : '' }}>商品トラブル</option>
-                            <option value="ショップへのお問い合わせ" {{ old('category') == 'ショップへのお問い合わせ' ? 'selected' : '' }}>ショップへのお問い合わせ</option>
-                            <option value="その他" {{ old('category') == 'その他' ? 'selected' : '' }}>その他</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->content }}" {{ old('category') == $category->content ? 'selected' : '' }}>{{ $category->content }}</option>
+                            @endforeach
                         </select>
                         @error('category')
                             <div class="error-message">{{ $message }}</div>

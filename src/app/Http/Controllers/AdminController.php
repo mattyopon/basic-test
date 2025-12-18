@@ -29,18 +29,28 @@ class AdminController extends Controller
 
         // 性別での検索
         if ($request->filled('gender') && $request->gender !== 'all') {
-            $genderMap = ['男性' => 1, '女性' => 2, 'その他' => 3];
-            $genderValue = $genderMap[$request->gender] ?? null;
-            if ($genderValue) {
-                $query->where('gender', $genderValue);
+            // 文字列（'男性'、'女性'、'その他'）または数値（'1'、'2'、'3'）の両方に対応
+            if (is_numeric($request->gender)) {
+                $query->where('gender', (int)$request->gender);
+            } else {
+                $genderMap = ['男性' => 1, '女性' => 2, 'その他' => 3];
+                $genderValue = $genderMap[$request->gender] ?? null;
+                if ($genderValue) {
+                    $query->where('gender', $genderValue);
+                }
             }
         }
 
         // お問い合わせ種類での検索
         if ($request->filled('category') && $request->category !== 'all') {
-            $category = Category::where('name', $request->category)->first();
-            if ($category) {
-                $query->where('category_id', $category->id);
+            // 数値の場合は直接category_idで検索、文字列の場合はカテゴリ名からIDを取得
+            if (is_numeric($request->category)) {
+                $query->where('category_id', (int)$request->category);
+            } else {
+                $category = Category::where('content', $request->category)->first();
+                if ($category) {
+                    $query->where('category_id', $category->id);
+                }
             }
         }
 
@@ -65,14 +75,19 @@ class AdminController extends Controller
         
         return response()->json([
             'id' => $contact->id,
-            'name' => $contact->last_name . ' ' . $contact->first_name,
-            'gender' => $genderMap[$contact->gender] ?? '',
-            'email' => $contact->email,
-            'phone' => $contact->tel,
-            'address' => $contact->address,
-            'building' => $contact->building,
-            'category' => $contact->category->name ?? '',
-            'content' => $contact->detail,
+            'last_name' => $contact->last_name ?? '',
+            'first_name' => $contact->first_name ?? '',
+            'name' => ($contact->last_name ?? '') . ' ' . ($contact->first_name ?? ''),
+            'gender' => $genderMap[$contact->gender] ?? '-',
+            'email' => $contact->email ?? '-',
+            'tel' => $contact->tel ?? '-',
+            'phone' => $contact->tel ?? '-', // モーダルで使用しているため残す
+            'address' => $contact->address ?? '-',
+            'building' => $contact->building ?? null,
+            'category_name' => $contact->category->content ?? '-',
+            'category' => $contact->category->content ?? '-', // モーダルで使用しているため残す
+            'detail' => $contact->detail ?? '-',
+            'content' => $contact->detail ?? '-', // モーダルで使用しているため残す
         ]);
     }
 
@@ -105,17 +120,27 @@ class AdminController extends Controller
         }
 
         if ($request->filled('gender') && $request->gender !== 'all') {
-            $genderMap = ['男性' => 1, '女性' => 2, 'その他' => 3];
-            $genderValue = $genderMap[$request->gender] ?? null;
-            if ($genderValue) {
-                $query->where('gender', $genderValue);
+            // 文字列（'男性'、'女性'、'その他'）または数値（'1'、'2'、'3'）の両方に対応
+            if (is_numeric($request->gender)) {
+                $query->where('gender', (int)$request->gender);
+            } else {
+                $genderMap = ['男性' => 1, '女性' => 2, 'その他' => 3];
+                $genderValue = $genderMap[$request->gender] ?? null;
+                if ($genderValue) {
+                    $query->where('gender', $genderValue);
+                }
             }
         }
 
         if ($request->filled('category') && $request->category !== 'all') {
-            $category = Category::where('name', $request->category)->first();
-            if ($category) {
-                $query->where('category_id', $category->id);
+            // 数値の場合は直接category_idで検索、文字列の場合はカテゴリ名からIDを取得
+            if (is_numeric($request->category)) {
+                $query->where('category_id', (int)$request->category);
+            } else {
+                $category = Category::where('content', $request->category)->first();
+                if ($category) {
+                    $query->where('category_id', $category->id);
+                }
             }
         }
 
@@ -161,7 +186,7 @@ class AdminController extends Controller
                     $contact->tel ?? '',
                     $contact->address ?? '',
                     $contact->building ?? '',
-                    $contact->category->name ?? '',
+                    $contact->category->content ?? '',
                     $contact->detail,
                     $contact->created_at->format('Y-m-d H:i:s'),
                 ]);

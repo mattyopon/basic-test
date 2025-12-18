@@ -340,9 +340,9 @@
                 <div class="form-group">
                     <select id="gender" name="gender" class="form-select">
                         <option value="all">性別</option>
-                        <option value="男性" {{ request('gender') == '男性' ? 'selected' : '' }}>男性</option>
-                        <option value="女性" {{ request('gender') == '女性' ? 'selected' : '' }}>女性</option>
-                        <option value="その他" {{ request('gender') == 'その他' ? 'selected' : '' }}>その他</option>
+                        <option value="1" {{ request('gender') == '1' ? 'selected' : '' }}>男性</option>
+                        <option value="2" {{ request('gender') == '2' ? 'selected' : '' }}>女性</option>
+                        <option value="3" {{ request('gender') == '3' ? 'selected' : '' }}>その他</option>
                     </select>
                 </div>
 
@@ -350,7 +350,7 @@
                     <select id="category" name="category" class="form-select">
                         <option value="all">お問い合わせの種類</option>
                         @foreach($categories as $category)
-                            <option value="{{ $category->name }}" {{ request('category') == $category->name ? 'selected' : '' }}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>{{ $category->content }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -404,7 +404,7 @@
                         <th>お名前</th>
                         <th>性別</th>
                         <th>メールアドレス</th>
-                        <th>お問い合わせの種類</th>
+                        <th>お問い合わせ内容</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -420,7 +420,7 @@
                                 @endif
                             </td>
                             <td>{{ $contact->email }}</td>
-                            <td>{{ $contact->category->name ?? '-' }}</td>
+                            <td>{{ Str::limit($contact->detail, 30) }}</td>
                             <td>
                                 <button class="btn-detail" onclick="showDetail({{ $contact->id }})">詳細</button>
                             </td>

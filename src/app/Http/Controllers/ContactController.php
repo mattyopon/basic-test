@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
@@ -13,7 +12,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return view('contact');
+        $categories = \App\Models\Category::all();
+        return view('contact', compact('categories'));
     }
 
     /**
@@ -48,7 +48,7 @@ class ContactController extends Controller
         $gender = $genderMap[$request->gender] ?? 1;
         
         // カテゴリ名からIDを取得
-        $category = \App\Models\Category::where('name', $request->category)->first();
+        $category = \App\Models\Category::where('content', $request->category)->first();
         
         Contact::create([
             'category_id' => $category->id ?? 1,

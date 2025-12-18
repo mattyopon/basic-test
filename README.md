@@ -31,9 +31,13 @@ php artisan db:seed
 ## 使用技術(実行環境)
 
 - PHP 8.1
-- Laravel 8.x
+- Laravel 8.75
 - Laravel Fortify 1.13
-- MySQL 8.0
+- Laravel Sanctum 2.11
+- MySQL 8.0.26
+- Nginx 1.21.1
+- phpMyAdmin
+- Docker / Docker Compose
 
 ## ER 図
 
