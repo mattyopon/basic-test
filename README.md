@@ -10,7 +10,8 @@ cd basic-test
 docker-compose up -d --build
 ```
 
-- MySQL は、OS によって起動しない場合があるのでそれぞれの PC に合わせて docker-compose.yml ファイルを編集してください。
+- MySQL のデータディレクトリは `./docker/mysql/data` に保存されます。初回起動時は自動的にディレクトリが作成されます。
+- MySQL が起動しない場合は、docker-compose.yml の MySQL ボリュームパスを確認してください。
 
 ### Laravel 環境構築
 
@@ -22,11 +23,17 @@ composer install
 `.env.example`ファイルから`.env`を作成し、環境変数を変更
 
 ```bash
+cd /var/www
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
 php artisan db:seed
 ```
+
+**注意事項:**
+- `composer install`は`/var/www`ディレクトリで実行してください
+- `.env`ファイルの作成と`php artisan`コマンドも`/var/www`ディレクトリで実行してください
+- MySQLのデータディレームは`./docker/mysql/data`に保存されます。初回起動時は自動的にディレクトリが作成されます
 
 ## 使用技術(実行環境)
 
@@ -58,7 +65,7 @@ erDiagram
 
     categories {
         bigint_unsigned id PK
-        varchar name
+        varchar content
         timestamp created_at
         timestamp updated_at
     }
