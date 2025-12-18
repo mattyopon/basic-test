@@ -1,34 +1,81 @@
 # Basic Test App
 
-確認テスト用のシンプルなWebアプリケーションです。
+## 環境構築
 
-## 機能
+### Docker ビルド
 
-- **タスク管理**: タスクの追加、削除、完了状態の切り替えが可能
-- **カウンター**: 数値の増減とリセット機能
-- **ローカルストレージ**: データはブラウザのローカルストレージに保存されます
-
-## 使い方
-
-1. `index.html` をブラウザで開く
-2. タスク管理セクションでタスクを追加・管理
-3. カウンターセクションで数値の操作
-
-## ファイル構成
-
-```
-basic-test/
-├── index.html      # メインHTMLファイル
-├── css/
-│   └── style.css  # スタイルシート
-├── js/
-│   └── app.js     # アプリケーションロジック
-└── README.md      # このファイル
+```bash
+git clone git@github.com:mattyopon/basic-test.git
+cd basic-test
+docker-compose up -d --build
 ```
 
-## 技術スタック
+- MySQL は、OS によって起動しない場合があるのでそれぞれの PC に合わせて docker-compose.yml ファイルを編集してください。
 
-- HTML5
-- CSS3
-- JavaScript (Vanilla JS)
-- LocalStorage API
+### Laravel 環境構築
+
+```bash
+docker-compose exec php bash
+composer install
+```
+
+`.env.example`ファイルから`.env`を作成し、環境変数を変更
+
+```bash
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+php artisan db:seed
+```
+
+## 使用技術(実行環境)
+
+- PHP 8.1
+- Laravel 8.x
+- Laravel Fortify 1.13
+- MySQL 8.0
+
+## ER 図
+
+```mermaid
+erDiagram
+    categories ||--o{ contacts : ""
+
+    users {
+        bigint_unsigned id PK
+        varchar name
+        varchar email UK
+        timestamp email_verified_at
+        varchar password
+        varchar remember_token
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    categories {
+        bigint_unsigned id PK
+        varchar name
+        timestamp created_at
+        timestamp updated_at
+    }
+
+    contacts {
+        bigint_unsigned id PK
+        bigint_unsigned category_id FK
+        varchar first_name
+        varchar last_name
+        tinyint gender "1:男性 2:女性 3:その他"
+        varchar email
+        varchar tel
+        varchar address
+        varchar building
+        text detail
+        timestamp created_at
+        timestamp updated_at
+    }
+```
+
+## URL
+
+- 開発環境：http://localhost/
+- phpMyAdmin：http://localhost:8080/
