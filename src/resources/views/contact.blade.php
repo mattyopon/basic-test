@@ -238,7 +238,7 @@
                 
                 <div class="form-row">
                     <label class="form-label">
-                        <span class="form-label-required">※</span>お名前
+                        お名前<span class="form-label-required">※</span>
                     </label>
                     <div class="form-input-group">
                         <div class="name-group">
@@ -268,7 +268,7 @@
 
                 <div class="form-row">
                     <label class="form-label">
-                        <span class="form-label-required">※</span>性別
+                        性別<span class="form-label-required">※</span>
                     </label>
                     <div class="form-input-group">
                         <div class="radio-group">
@@ -311,7 +311,7 @@
 
                 <div class="form-row">
                     <label for="email" class="form-label">
-                        <span class="form-label-required">※</span>メールアドレス
+                        メールアドレス<span class="form-label-required">※</span>
                     </label>
                     <div class="form-input-group">
                         <input 
@@ -330,7 +330,7 @@
 
                 <div class="form-row">
                     <label class="form-label">
-                        <span class="form-label-required">※</span>電話番号
+                        電話番号<span class="form-label-required">※</span>
                     </label>
                     <div class="form-input-group">
                         <div class="phone-group">
@@ -378,7 +378,7 @@
 
                 <div class="form-row">
                     <label for="address" class="form-label">
-                        <span class="form-label-required">※</span>住所
+                        住所<span class="form-label-required">※</span>
                     </label>
                     <div class="form-input-group">
                         <input 
@@ -411,7 +411,7 @@
 
                 <div class="form-row">
                     <label for="category" class="form-label">
-                        <span class="form-label-required">※</span>お問い合わせの種類
+                        お問い合わせの種類<span class="form-label-required">※</span>
                     </label>
                     <div class="form-input-group">
                         <select 
@@ -432,7 +432,7 @@
 
                 <div class="form-row">
                     <label for="content" class="form-label">
-                        <span class="form-label-required">※</span>お問い合わせ内容
+                        お問い合わせ内容<span class="form-label-required">※</span>
                     </label>
                     <div class="form-input-group">
                         <textarea 
