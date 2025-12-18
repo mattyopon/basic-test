@@ -32,4 +32,3 @@ basic-test/
 - CSS3
 - JavaScript (Vanilla JS)
 - LocalStorage API
-
