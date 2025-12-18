@@ -404,6 +404,7 @@
                         <th>お名前</th>
                         <th>性別</th>
                         <th>メールアドレス</th>
+                        <th>お問い合わせの種類</th>
                         <th>お問い合わせ内容</th>
                         <th></th>
                     </tr>
@@ -420,6 +421,7 @@
                                 @endif
                             </td>
                             <td>{{ $contact->email }}</td>
+                            <td>{{ $contact->category->content ?? '-' }}</td>
                             <td>{{ Str::limit($contact->detail, 30) }}</td>
                             <td>
                                 <button class="btn-detail" onclick="showDetail({{ $contact->id }})">詳細</button>
@@ -427,7 +429,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" style="text-align: center; padding: 40px;">
+                            <td colspan="7" style="text-align: center; padding: 40px;">
                                 データがありません
                             </td>
                         </tr>
