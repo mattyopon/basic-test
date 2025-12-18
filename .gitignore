@@ -1,0 +1,17 @@
+# OS関連
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# エディタ関連
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# 一時ファイル
+*.log
+*.tmp
+
