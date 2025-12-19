@@ -17,13 +17,33 @@ docker-compose up -d --build
 
 ```bash
 docker-compose exec php bash
+cd /var/www
+```
+
+**重要**: `composer install`を実行する前に、必要なディレクトリを作成してください。
+
+```bash
+# 必要なディレクトリを作成
+mkdir -p storage/framework/cache/data
+mkdir -p storage/framework/sessions
+mkdir -p storage/framework/testing
+mkdir -p storage/framework/views
+mkdir -p storage/logs
+mkdir -p bootstrap/cache
+
+# ディレクトリの権限を設定
+chmod -R 775 storage bootstrap/cache
+```
+
+その後、`composer install`を実行します。
+
+```bash
 composer install
 ```
 
 `.env.example`ファイルから`.env`を作成し、環境変数を変更
 
 ```bash
-cd /var/www
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
@@ -35,6 +55,7 @@ php artisan db:seed
 - `composer install`は`/var/www`ディレクトリで実行してください
 - `.env`ファイルの作成と`php artisan`コマンドも`/var/www`ディレクトリで実行してください
 - MySQL のデータディレクトリは`~/coachtech-basic-test-mysql-data`に保存されます。初回起動時は自動的にディレクトリが作成されます
+- `composer install`実行前に、`storage/framework`配下のディレクトリ（`cache/data`, `sessions`, `testing`, `views`）と`bootstrap/cache`ディレクトリを作成してください。これらが存在しないとエラーが発生します
 
 ## 使用技術(実行環境)
 
